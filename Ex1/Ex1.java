@@ -44,8 +44,11 @@ public class Ex1{
         int FinalHour,FinalMin;
         FinalHour = EndHour - Hour;
         FinalMin = EndMin - Min;
-        if (FinalHour <= 0){FinalHour+=24;}
-        if(FinalMin<= 0){FinalMin+=60; FinalHour-=1;}
+        if (FinalHour < 0){FinalHour+=24;}
+        if (FinalMin< 0){FinalMin+=60; FinalHour-=1;}
+        if (EndHour == Hour && EndMin < Min){
+            FinalHour = 23;
+        }
         System.out.printf("Duration = %d hours, %d minutes",FinalHour,FinalMin);
     }
 
