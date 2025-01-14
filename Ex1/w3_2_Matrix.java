@@ -1,5 +1,3 @@
-package Lab_Ch3;
-
 class w3_2_Matrix  
 {
     public static void printMatrix(String name, int[][] matrix)  

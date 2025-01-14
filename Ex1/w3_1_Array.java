@@ -1,5 +1,3 @@
-package Lab_Ch3;
-
 import java.util.*;
 
 class w3_1_Array 

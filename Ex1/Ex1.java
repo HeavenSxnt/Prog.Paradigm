@@ -5,13 +5,13 @@ public class Ex1{
     public static void main(String[] args){
         int Hour,Min,EndHour,EndMin;
         System.out.println("=== Start time ===");
-        while(true){
+        
+        do{
             System.out.println("Enter hour digit (0 - 23) = ");
             Hour = readHour();
-            if (Hour>= 0 && Hour <= 23){
-                break;
-            }
-        }
+            
+        }while(Hour< 0 && Hour > 23);
+
         while(true){
             System.out.println("Enter minute digit (0 - 59) = ");
             Min = readMin();
