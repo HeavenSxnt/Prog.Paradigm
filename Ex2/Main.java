@@ -1,3 +1,7 @@
+// Siriwat 6581098
+
+package Ex2_6581098;
+
 import java.util.*;
 import java.io.*;
 
