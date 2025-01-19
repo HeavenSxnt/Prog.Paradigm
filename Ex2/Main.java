@@ -8,12 +8,15 @@ public class Main{
         int threshold;
         String thresCheck;
         Scanner input = new Scanner(System.in);
-        File FileScan = new File("platforms.txt");
-        File Output = new File("output.txt");
+        File FileScan = new File("src/main/Java/Ex2_6581098/platforms.txt");
+        // File FileScan = new File("platforms.txt");
+        File Output = new File("src/main/Java/Ex2_6581098/output.txt");
+        // File Output = new File("output.txt");
 
         // Location of platforms.txt
         try{
-            System.out.println("Read platform data from " + FileScan.getAbsolutePath());
+            System.out.println("Read platform data from " + FileScan.getPath());
+            // System.out.println("Read platform data from " + FileScan.getAbsolutePath());
         } catch (Exception e) {System.err.println(e);}
 
         // Scan threshold
@@ -23,7 +26,8 @@ public class Main{
 
         // Location of output.txt
         try{
-            System.out.println("Write output " + Output.getAbsolutePath());
+            System.out.println("Write output " + Output.getPath());
+            // System.out.println("Write output " + Output.getAbsolutePath());
         } catch (Exception e) {System.err.println(e);}
 
         // Write on output.txt
