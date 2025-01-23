@@ -69,7 +69,7 @@ class Bird1 extends AnimalAbstract1
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-class w5_1_Abstract
+class w5_1_Abstract // *** Main ***
 {
     public static void main(String[] args) 
     {
