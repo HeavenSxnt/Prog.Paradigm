@@ -18,44 +18,71 @@ class Player {
 }
 
 class FootballPlayer extends Player{
-    public int avgGoals;
+    protected int avgGoals;
+    protected int[] arrayOfgames;
+    protected int[] arrayOfgoals;
+
+    class FootballPlayer(String nm, int by, int[] games, int[] goals){
+        super(nm,by);
+        arrayOfgames = games;
+        arrayOfgoals = goals;
+    }
 
     @Override
     public void printPersonalData(){
-
+        System.out.printf("%s born %d age = %d\n",getName(), birthyear, CURRENT_YEAR - birthyear);
     }
 
     @Override
     public void printStat(){
+        System.out.printf("%s total games = %d total goals = %d (%.2f per game) last season goals = %d\n",getName(), Sum(arrayOfgames), Sum(arrayOfgoals), (float)Sum(arrayOfgoals)/Sum(arrayOfgames), arrayOfgoals[arrayOfgoals.length-1]);
+    }
 
+    private int Sum(int[] array){
+        int sum = 0;
+        for (int i = 0; i<array.length;i++){
+            sum += array[i];
+        }
+        return sum;
     }
 }
 
 class BasketballPlayer extends Player{
-    public int totalGames, totalMins, totalPts, avgMins, avgPts;
-    int[] games;
-    int[] goals;
+    protected int totalGames, totalMins, totalPts; 
+    protected float avgMins, avgPts;
+
+    class BasketballPlayer(String nm, int by, int totalG, int totalM, int totalP){
+        super(nm,by);
+        totalGames = totalG;
+        totalMins = totalM;
+        totalPts = totalP;
+        avgMins = (float)totalM/totalG;
+        avgPts = (float)totalP/totalMG;
+    }
 
     @Override
     public void printPersonalData(){
-
+        System.out.printf("%s born %d age = %d\n",getName(), birthyear, CURRENT_YEAR - birthyear);
     }
     
     @Override
     public void printStat(){
-
+        System.out.printf("%s total games = %d total mins = %d (%.2f per game) total points = %d (%.2f per game)\n",getName(), totalGames, totalMins, avgMins, totalPts, avgPts);
     }
 }
 
+// Exta class
+
 public class Main{
     public static void main(String[] args){
-        Player[] allPlayers;
+        Player[] allPlayers = new Player[12];
         File FileScan = new File("players.txt");
-        Scanner PlayerFile = new Scanner(FileScan);
-        for(int i =0; i<= 11; i++){
-            Player[i] allPlayers;
-            // System.out.print
-        }
-
+        try{
+            Scanner PlayerFile = new Scanner(FileScan);
+            for(int i =0; i<= 11; i++){
+                String line = FileScan.nextLine();
+                String [] cols = line.spilt(",");
+            }
+        }catch (Exception e) {System.err.println(e);}
     }
 }
