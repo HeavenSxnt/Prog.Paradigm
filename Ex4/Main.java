@@ -1,16 +1,13 @@
-// Siriwat 6581098
+// Siriwat Ittisompiboon 6581098
 
-// package Ex4_6581098;
+package Ex4_6581098;
 
 import java.util.*;
 import java.io.*;
 
-class Company{
+class Company implements Comparable<Company>{
     private String name;
-    private int year;
-    private int marketValue;
-    private int profit;
-    private int sales;
+    private int year, marketValue, profit, sales;
 
     public Company(String name, int year, int marketValue, int profit, int sales){
         this.name = name;
@@ -20,62 +17,74 @@ class Company{
         this.sales = sales;
     }
 
-    // getter & setter
-    // Name
-    public String getName(){
-        return name;
-    }
-    public void setName(String name){
-        this.name = name;
-    }
-
-    // Year
-    public int getYear(){
-        return year;
-    }
-    public void setYear(int year){
-        this.year = year;
-    }
-
-    // MarketValue
-    public int getMarketValue(){
-        return marketValue;
-    }
-    public void setMarketValue(int marketValue){
-        this.marketValue = marketValue;
-    }
-
-    // Profit
-    public int getProfit(){
-        return profit;
-    }
-    public void setProfit(int profit){
-        this.profit = profit;
-    }
-
-
-    // Sales
-    public int getSales(){
-        return sales;
-    }
-    public void setSales(int sales){
-        this.sales = sales;
-    }
-
-    public String toString
-}
-
-class Company implements Comparator<Company> {
-    private String name;
-    private int year, marketValue, profit, sales;
-
+    // Compare to decreasing order
     public int compareTo(Company other){
-        // 2.3 - 2.6
+        if(this.marketValue > other.marketValue){return -1;}
+        else if(this.marketValue < other.marketValue){return 1;}
+
+        else if(this.profit > other.profit) {return -1;}
+        else if(this.profit < other.profit) {return 1;}
+
+        else if(this.sales > other.sales) {return -1;}
+        else if(this.sales < other.sales) {return 1;}
+
+        else if(this.name.compareToIgnoreCase(other.name)<= 0) {return -1;}
+        else if(this.name.compareToIgnoreCase(other.name)>0) {return 1;}
+
+        else{return 0;} 
+    }
+
+    public void printInfo(){
+        System.out.printf("%-22s (%d) %,17d %17d %15d\n",name, year, marketValue, profit, sales);
     }
 }
 
 public class Main{
     public static void main(String[] args){
+        // File FileInput = new File("companies.txt");
+        File FileInput = new File("src/main/java/Ex4_6581098/companies.txt");
+        try{
+            while(true){
+                // declaration
+                ArrayList<Company> Companies = new ArrayList<Company>();
+                Scanner FileScan = new Scanner(FileInput);
+                FileScan.nextLine();
+                Scanner Scan = new Scanner(System.in);
+                
+                // Header
+                System.out.println("Enter year threshold = ");
+                int threshold = Integer.parseInt(Scan.nextLine());
+                System.out.printf("Company established  since %d    Market Value($Bn.).    Profit($Bn.)    Sales($Bn.)\n",threshold);
+                System.out.println("=".repeat(90));
 
+                // Skip the 1st line & get info
+                for(int i=0; i<=27; i++){
+                    String line = FileScan.nextLine();
+                    String [] cols = line.split(",");
+                    String name = cols[0].trim();
+                    int year = Integer.parseInt(cols[1].trim());
+                    int marketValue = Integer.parseInt(cols[2].trim());
+                    int profit = Integer.parseInt(cols[3].trim());
+                    int sales = Integer.parseInt(cols[4].trim());
+
+                    if(year>= threshold){
+                        Companies.add(new Company(name, year, marketValue, profit, sales));
+                    }
+                }
+
+                // Print all
+                Collections.sort(Companies);
+                for(int i=0; i<Companies.size(); i++){
+                    Companies.get(i).printInfo();
+                }
+                FileScan.close();
+
+                // Continue or break 
+                System.out.println("\n\n\nEnter y or Y to continue, else to quit = ");
+                String Choice = Scan.nextLine();
+                if (Choice.equals("y")||Choice.equals("Y")) {continue;}
+                else {Scan.close(); break;}
+            }
+        }catch (Exception e){ System.err.println(e);}
     }
 }
