@@ -1,6 +1,6 @@
 // Siriwat 6581098
 
-//package Ex4_6581098;
+// package Ex4_6581098;
 
 import java.util.*;
 import java.io.*;
