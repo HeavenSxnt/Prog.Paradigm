@@ -1,6 +1,6 @@
 // Siriwat Ittisompiboon 6581098
 
-package Ex4_6581098;
+// package Ex4_6581098;
 
 import java.util.*;
 import java.io.*;
@@ -41,8 +41,8 @@ class Company implements Comparable<Company>{
 
 public class Main{
     public static void main(String[] args){
-        // File FileInput = new File("companies.txt");
-        File FileInput = new File("src/main/java/Ex4_6581098/companies.txt");
+        File FileInput = new File("companies.txt");
+        //File FileInput = new File("src/main/java/Ex4_6581098/companies.txt");
         try{
             while(true){
                 // declaration
