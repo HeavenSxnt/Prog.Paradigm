@@ -66,10 +66,11 @@ public class Main{
             if (number[i] < 0) throw new InvalidNumberException("For input: \"" + number[i] + "\"");
         }
     }
+
     public static void main(String[] args){
         Scanner Scan = new Scanner(System.in);
-        File FileInput = new File("companies_error.txt");
-        // File FileInput = new File("src/main/java/Ex4_6581098/companies.txt");
+        // File FileInput = new File("companies.txt");
+        File FileInput = new File("src/main/java/Ex4_6581098/companies.txt");
         ArrayList<Company> Companies = new ArrayList<Company>();
 
         while(true){
@@ -101,20 +102,21 @@ public class Main{
                 System.err.println(e);
                 System.out.println("New File Name = ");
                 FileInput = new File(Scan.nextLine().trim());   
-                // FileInput = new File("src/main/Java/Ex5_6581098/" + Scan.nextLine().trim());  
+                //FileInput = new File("src/main/Java/Ex5_6581098/" + Scan.nextLine().trim());  
             }
         }
         
         // Scanner
         int threshold;
-        System.out.println("Enter year threshold = ");
+        //System.out.println("Enter year threshold = ");
         while(true){
             try{
+                System.out.println("Enter year threshold = ");
                 threshold = Scan.nextInt();
                 break;
             }catch(InputMismatchException e){
                 Scan.nextLine();
-                System.err.println(e + ": Invalid Input");
+                System.err.println(e + ": Try again, Invalid Input");
             }
         }
 
