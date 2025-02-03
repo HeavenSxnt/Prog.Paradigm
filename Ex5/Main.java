@@ -33,6 +33,10 @@ class Company implements Comparable<Company>{
         System.out.printf("%-22s (%d) %,17d %17d %15d\n",name, year, marketValue, profit, sales);
     }
 
+    public int getYear(){
+        return year;
+    }
+
     @Override
     public int compareTo(Company other){
         if(this.marketValue > other.marketValue){return -1;}
@@ -83,7 +87,7 @@ public class Main{
                         String [] cols = line.trim().split("\\s*,\\s*");
                         String name = cols[0];
                         int year = Integer.parseInt(cols[1]);
-                        int marketValue = (int) Double.parseDouble(cols[2]);
+                        int marketValue = Integer.parseInt(cols[2]);
                         int profit = (int) Double.parseDouble(cols[3]);
                         int sales = (int) Double.parseDouble(cols[4]);
                         CheckingYear(year);
@@ -123,7 +127,9 @@ public class Main{
         System.out.printf("Company established  since %d    Market Value($Bn.).    Profit($Bn.)    Sales($Bn.)\n",threshold);
         System.out.println("=".repeat(90));
         for(int i=0; i<Companies.size(); i++){
+            if (Companies.get(i).getYear()>=threshold){
             Companies.get(i).printInfo();
+            }
         }
         Scan.close();
     }
