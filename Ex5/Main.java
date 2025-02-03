@@ -74,7 +74,7 @@ public class Main{
     public static void main(String[] args){
         Scanner Scan = new Scanner(System.in);
         // File FileInput = new File("companies.txt");
-        File FileInput = new File("src/main/java/Ex4_6581098/companies.txt");
+        File FileInput = new File("src/main/java/Ex5_6581098/companies.txt");
         ArrayList<Company> Companies = new ArrayList<Company>();
 
         while(true){
@@ -87,7 +87,8 @@ public class Main{
                         String [] cols = line.trim().split("\\s*,\\s*");
                         String name = cols[0];
                         int year = Integer.parseInt(cols[1]);
-                        int marketValue = Integer.parseInt(cols[2]);
+                        int marketValue = Integer.parseInt(cols[2]);            // For output 1
+                        // int marketValue = (int) Double.parseDouble(cols[2]); // For output 2
                         int profit = (int) Double.parseDouble(cols[3]);
                         int sales = (int) Double.parseDouble(cols[4]);
                         CheckingYear(year);
@@ -105,14 +106,14 @@ public class Main{
             }catch (FileNotFoundException e){
                 System.err.println(e);
                 System.out.println("New File Name = ");
-                FileInput = new File(Scan.nextLine().trim());   
-                //FileInput = new File("src/main/Java/Ex5_6581098/" + Scan.nextLine().trim());  
+                // FileInput = new File(Scan.nextLine().trim());  
+                FileInput = new File("src/main/Java/Ex5_6581098/" + Scan.nextLine().trim());
+                System.out.println();   
             }
         }
         
         // Scanner
         int threshold;
-        //System.out.println("Enter year threshold = ");
         while(true){
             try{
                 System.out.println("Enter year threshold = ");
