@@ -1,6 +1,6 @@
 // Siriwat Ittisompiboon 6581098
 
-// package Ex5_6581098;
+package Ex5_6581098;
 
 import java.util.*;
 import java.io.*;
@@ -73,8 +73,9 @@ public class Main{
 
     public static void main(String[] args){
         Scanner Scan = new Scanner(System.in);
-        // File FileInput = new File("companies.txt");
-        File FileInput = new File("src/main/java/Ex5_6581098/companies.txt");
+        // File FileInput = new File("companies_errors.txt");
+        File FileInput = new File("src/main/java/Ex5_6581098/companies.txt"); // Error path
+        // File FileInput = new File("src/main/java/Ex5_6581098/companies_errors.txt"); // Correct path
         ArrayList<Company> Companies = new ArrayList<Company>();
 
         while(true){
@@ -106,7 +107,7 @@ public class Main{
             }catch (FileNotFoundException e){
                 System.err.println(e);
                 System.out.println("New File Name = ");
-                // FileInput = new File(Scan.nextLine().trim());  
+                //FileInput = new File(Scan.nextLine().trim());  
                 FileInput = new File("src/main/Java/Ex5_6581098/" + Scan.nextLine().trim());
                 System.out.println();   
             }
