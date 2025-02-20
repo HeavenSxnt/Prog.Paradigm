@@ -1,11 +1,14 @@
-// package ...
-
 import java.util.*;
 import java.io.*;
 
 public class PetShop{
     private ArrayList<Pet> animals;
     private ArrayList<Customer> customers;
+
+    public PetShop() {
+        animals = new ArrayList<>();  // Initialize the list
+        customers = new ArrayList<>();
+    }
 
     public void addAnimal(Pet pet){
         animals.add(pet);
