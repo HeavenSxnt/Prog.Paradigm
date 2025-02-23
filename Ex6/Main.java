@@ -5,10 +5,9 @@
 import java.util.*;
 import java.io.*;
 
-class Constant{
-    public static final int totalCard = 52;
-    public static final int CardPerRound = 4;
-}
+// total card in 1 deck = 52
+// card per round = 4
+// cannot draw same suit and rank AGAIN
 
 class OneCard {
     private int score; // 0-51
