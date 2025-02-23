@@ -13,11 +13,11 @@ class Constant{
 class OneCard {
     private int score; // 0-51
     private int suit;  // (0)clubs, (1)diamonds, (2)hearts, (3)spades
-    private int rank;  // (1)ace, 2-10, (11)jack, (11)queen, (11)king   
+    private int rank;  // (0)ace, 2-10, (11)jack, (11)queen, (11)king   
 
     public OneCard(int score, int suit, int rank) {
         Random random = new Random();
-        this.score = random.nextInt(52);
+        this.score = random.nextInt(totalCard);
         this.suit = this.score / 13; // For 4 suits
         this.rank = this.score % 13; 
     }
