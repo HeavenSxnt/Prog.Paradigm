@@ -10,15 +10,18 @@ import java.io.*;
 // cannot draw same suit and rank AGAIN
 
 class OneCard {
+    public static final int totalCard = 52;
+    public static final int CardPerRound = 4;
+
     private int score; // 0-51
     private int suit;  // (0)clubs, (1)diamonds, (2)hearts, (3)spades
     private int rank;  // (0)ace, 2-10, (11)jack, (11)queen, (11)king   
 
-    public OneCard(int score, int suit, int rank) {
+    public OneCard() {
         Random random = new Random();
         this.score = random.nextInt(totalCard);
         this.suit = this.score / 13; // For 4 suits
-        this.rank = this.score % 13; 
+        this.rank = (this.score % 13) + 1;
     }
 
     public int getScore(){
@@ -36,7 +39,7 @@ class OneCard {
 
 class CardThread extends Thread {
     private int round;
-    private PrintWriter out;
+    private PrintWriter Out;
     private int ThreadNumber;
     private ArrayList<OneCard> randomCards;
 
@@ -50,9 +53,37 @@ class CardThread extends Thread {
         // For checking : System.out.println("Starting Thread");
 
         // Create PrintWriter object to write result to a separate file
-        try(PrintWriter out = new PrintWriter(new File("T" + this.ThreadNumber))){
+        try(PrintWriter Out = new PrintWriter(new File("T" + this.ThreadNumber))){
             while(true){
-                OneCard start = new OneCard();
+                while(randomCards.size() < OneCard.CardPerRound){
+                   OneCard start = new OneCard();
+                    if(!randomCards.contains(start)){
+                        randomCards.add(start);
+                    } 
+                }
+
+                // Case for suit
+                for(OneCard single : randomCards){
+                    String storeRank;
+                    switch(single.getSuit()){
+                        case 1 : storeRank = "A"; break;
+                        case 11 : storeRank = "J"; break;
+                        case 12 : storeRank = "Q"; break;
+                        case 13 : storeRank = "K"; break;
+                        default : storeRank = String.valueOf(OneCard.getSuit());
+                    }
+
+                    // Case for Suit
+                    String storeSuit;
+                    switch(single.getSuit()){
+                        case 0 : storeSuit = "Clubs"; break;
+                        case 1 : storeSuit = "Diamonds"; break;
+                        case 2 : storeSuit = "Hearts"; break;
+                        case 3 : storeSuit = "Spades"; break;
+                        default : storeSuit = "None"; break;
+                    }
+                }
+                
             }
         } catch (FileNotFoundException e) { System.err.println(e);}
 
@@ -69,13 +100,26 @@ class CardThread extends Thread {
 
 }public class Main{
     public static void main(String[] args){
+        // Ask for number of thread
+        int AskforThread = 0;
         Scanner scan = new Scanner(System.in);
-        System.out.println("Number of threads = ");
-        int AskforThread = scan.nextInt();
-        if(Ask)
-        for(int i=0; i<AskforThread; i++){
+        while(true){
+           try{
+                System.out.println("Number of threads = ");
+                AskforThread = scan.nextInt();
+                if(AskforThread > 0) break;
+                else System.out.println("Number of thread should more than 0");
+            }catch (Exception e) {
+                System.err.println(e);
+                System.out.println("Error");
+                continue;
+            } 
+        }
+        scan.close();
+
+        /*for(int i=0; i<AskforThread; i++){
             CardThread amount = new CardThread(i);
             amount.start();
-        }
+        }*/
     }
 }
