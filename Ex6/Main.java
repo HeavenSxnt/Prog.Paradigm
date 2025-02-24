@@ -1,6 +1,6 @@
 // Siriwat 6581098
 
-// package Ex6_6581098;
+package Ex6_6581098;
 
 import java.util.*;
 import java.io.*;
@@ -31,6 +31,15 @@ class OneCard {
     public int getRank(){
         return this.rank;
     }
+
+    // Checking duplicate card (for .contains)
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof OneCard)) return false;
+        OneCard other = (OneCard) obj;
+        return this.score == other.score;
+    }
 }
 
 class CardThread extends Thread {
@@ -57,8 +66,8 @@ class CardThread extends Thread {
                 }
                 
                 ArrayList<String> Card = new ArrayList<>();
-                // Case for suit
                 for(OneCard single : randomCards){
+                    // Case for suit
                     String storeRank;
                     switch(single.getRank()){
                         case 1 : storeRank = "A"; break;
@@ -85,7 +94,7 @@ class CardThread extends Thread {
                 if(randomCards.get(0).getSuit()==randomCards.get(1).getSuit() && randomCards.get(0).getSuit()==randomCards.get(2).getSuit() 
                 && randomCards.get(0).getSuit()==randomCards.get(3).getSuit()||randomCards.get(0).getRank()==randomCards.get(1).getRank() 
                 && randomCards.get(0).getRank()==randomCards.get(2).getRank() && randomCards.get(0).getRank()==randomCards.get(3).getRank() ){
-                    System.out.printf("Thread T%d finishes in %d rounds \n",this.ThreadNumber, this.round);
+                    System.out.printf("Thread T%d finishes in %3d rounds \n",this.ThreadNumber, this.round);
                     break;
                 }
                 randomCards.clear();
@@ -105,18 +114,19 @@ class CardThread extends Thread {
            try{
                 System.out.println("Number of threads = ");
                 AskforThread = scan.nextInt();
+                scan.nextLine();
                 if(AskforThread > 0) break;
                 else System.out.println("Number of thread should more than 0");
             }catch (Exception e) {
                 System.err.println(e);
-                System.out.println("Error");
-                continue;
+                System.out.println("Error invalid input");
+                break;
             } 
         }
         scan.close();
 
         for(int i=0; i<AskforThread; i++){
-            Thread amount = new CardThread(i);
+            CardThread amount = new CardThread(i);
             amount.start();
         }
     }
