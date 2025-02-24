@@ -91,9 +91,13 @@ class CardThread extends Thread {
                 Out.printf("Round %3d [%s   , %s   , %s   , %s  ]\n",this.round, Card.get(0), Card.get(1), Card.get(2), Card.get(3));
                 Out.flush();
 
-                if(randomCards.get(0).getSuit()==randomCards.get(1).getSuit() && randomCards.get(0).getSuit()==randomCards.get(2).getSuit() 
-                && randomCards.get(0).getSuit()==randomCards.get(3).getSuit()||randomCards.get(0).getRank()==randomCards.get(1).getRank() 
-                && randomCards.get(0).getRank()==randomCards.get(2).getRank() && randomCards.get(0).getRank()==randomCards.get(3).getRank() ){
+                if((randomCards.get(0).getSuit() == randomCards.get(1).getSuit() &&
+                    randomCards.get(0).getSuit() == randomCards.get(2).getSuit() &&
+                    randomCards.get(0).getSuit() == randomCards.get(3).getSuit()) ||
+    
+                    (randomCards.get(0).getRank() == randomCards.get(1).getRank() &&
+                    randomCards.get(0).getRank() == randomCards.get(2).getRank() &&
+                    randomCards.get(0).getRank() == randomCards.get(3).getRank())){
                     System.out.printf("Thread T%d finishes in %3d rounds \n",this.ThreadNumber, this.round);
                     break;
                 }
@@ -120,7 +124,7 @@ class CardThread extends Thread {
             }catch (Exception e) {
                 System.err.println(e);
                 System.out.println("Error invalid input");
-                break;
+                scan.nextLine();
             } 
         }
         scan.close();
