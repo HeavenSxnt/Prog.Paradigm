@@ -5,10 +5,6 @@
 import java.util.*;
 import java.io.*;
 
-// total card in 1 deck = 52
-// card per round = 4
-// cannot draw same suit and rank AGAIN
-
 class OneCard {
     public static final int totalCard = 52;
     public static final int CardPerRound = 4;
@@ -50,8 +46,6 @@ class CardThread extends Thread {
     }
 
     public void run() {
-        // For checking : System.out.println("Starting Thread");
-
         // Create PrintWriter object to write result to a separate file
         try(PrintWriter Out = new PrintWriter(new File("T" + this.ThreadNumber))){
             while(true){
@@ -61,16 +55,17 @@ class CardThread extends Thread {
                         randomCards.add(start);
                     } 
                 }
-
+                
+                ArrayList<String> Card = new ArrayList<>();
                 // Case for suit
                 for(OneCard single : randomCards){
                     String storeRank;
-                    switch(single.getSuit()){
+                    switch(single.getRank()){
                         case 1 : storeRank = "A"; break;
                         case 11 : storeRank = "J"; break;
                         case 12 : storeRank = "Q"; break;
                         case 13 : storeRank = "K"; break;
-                        default : storeRank = String.valueOf(OneCard.getSuit());
+                        default : storeRank = String.valueOf(single.getRank());
                     }
 
                     // Case for Suit
@@ -82,18 +77,21 @@ class CardThread extends Thread {
                         case 3 : storeSuit = "Spades"; break;
                         default : storeSuit = "None"; break;
                     }
+                    Card.add(String.format("%3s of %-8s",storeRank, storeSuit));
                 }
-                
+                Out.printf("Round %3d [%s   , %s   , %s   , %s  ]\n",this.round, Card.get(0), Card.get(1), Card.get(2), Card.get(3));
+                Out.flush();
+
+                if(randomCards.get(0).getSuit()==randomCards.get(1).getSuit() && randomCards.get(0).getSuit()==randomCards.get(2).getSuit() 
+                && randomCards.get(0).getSuit()==randomCards.get(3).getSuit()||randomCards.get(0).getRank()==randomCards.get(1).getRank() 
+                && randomCards.get(0).getRank()==randomCards.get(2).getRank() && randomCards.get(0).getRank()==randomCards.get(3).getRank() ){
+                    System.out.printf("Thread T%d finishes in %d rounds \n",this.ThreadNumber, this.round);
+                    break;
+                }
+                randomCards.clear();
+                this.round++;
             }
         } catch (FileNotFoundException e) { System.err.println(e);}
-
-        // Execute steps 1-3 in loop:
-        // 1. Draw 4 cards from the same deck. The cards must not duplicate.
-        // 2. Print round number and these 4 cards to output file.
-        // 3. If all cards are from the same suit or have equal rank, stop the loop.
-        // Otherwise, clear randomCards & continue to the next round.
-
-        // After the loop, print #rounds to the screeen
 }
 
 
@@ -117,9 +115,9 @@ class CardThread extends Thread {
         }
         scan.close();
 
-        /*for(int i=0; i<AskforThread; i++){
-            CardThread amount = new CardThread(i);
+        for(int i=0; i<AskforThread; i++){
+            Thread amount = new CardThread(i);
             amount.start();
-        }*/
+        }
     }
 }
