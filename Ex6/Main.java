@@ -1,6 +1,6 @@
 // Siriwat 6581098
 
-//package Ex6_6581098;
+package Ex6_6581098;
 
 import java.util.*;
 import java.io.*;
@@ -56,7 +56,7 @@ class CardThread extends Thread {
 
     public void run() {
         // Create PrintWriter object to write result to a separate file
-        try(PrintWriter Out = new PrintWriter(new File("T" + this.ThreadNumber))){
+        try(PrintWriter Out = new PrintWriter(new File("src/main/java/Ex6_6581098/T" + this.ThreadNumber))){
             while(true){
                 while(randomCards.size() < OneCard.CardPerRound){
                    OneCard start = new OneCard();
