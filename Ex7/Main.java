@@ -2,7 +2,6 @@
 
 // package Ex7_6581098;    
 
-import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -13,13 +12,16 @@ class BankThread extends Thread
     private Exchanger<Account>  exchanger;         
     private CyclicBarrier       barrier;
     private int                 rounds;
-    private boolean             modeD;                  //deposit (true) or withdraw (false)
+    private boolean             modeD;   //deposit (true) or withdraw (false)
 
-    public BankThread(String n, Account sa, boolean m)  { 
-        super(n); sharedAccount = sa; modeD = m;
+    public BankThread(String n, Account sharedAccount, boolean modeD)  { 
+        super(n); 
+        this.sharedAccount = sharedAccount; 
+        this.modeD = modeD;
     }
-    public void setBarrier(CyclicBarrier ba)            { barrier = ba; }
-    public void setExchanger(Exchanger<Account> ex)     { exchanger = ex; }
+    
+    public void setBarrier(CyclicBarrier barrier)            { this.barrier = barrier; }
+    public void setExchanger(Exchanger<Account> exchanger)     { this.exchanger = exchanger; }
     
     public void run() {
         // Loop for banking simulation. In each simulation:        
@@ -45,7 +47,7 @@ class Account {
     private String  name;
     private int     balance;
     
-    public Account(String id, int b)   { name = id; balance = b; }
+    public Account(String name, int balance) {this.name = name; this.balance = balance;}
     public String getName()            { return name; }
     public int    getBalance()         { return balance; }
     Random random = new Random();
@@ -87,7 +89,6 @@ public class Main {
             BankThread System = new BankThread(i);
             BankThread.start();
         }
-        
     }
 
     public void runSimulation()
@@ -95,17 +96,22 @@ public class Main {
         Scanner keyboardScan = new Scanner(System.in);
         Account [] accounts  = { new Account("account A", 0), 
                                  new Account(".".repeat(35) + "account B", 0) };   
+                                 // [0] for account A ---- [1] for account B
          
         ArrayList<BankThread> allThreads = new ArrayList<>();
         Exchanger<Account> exchanger     = new Exchanger<>();
-        CyclicBarrier barrier            = new CyclicBarrier( allThreads.size()+1 );
+        CyclicBarrier barrier            = new CyclicBarrier(4);
         
-        // Create BankThread D1 and D2 for deposit task
+        // Create BankThread D1 and D2 for deposit(true) task
         //   - In the first simulation, D1 manages account A, D2 manages accout B
+        BankThread D1 = new BankThread("D1", accounts[0], true);
+        BankThread D2 = new BankThread("D2", accounts[1], true);
         //   - Pass Exchanger & CyclicBarrier objects
         
         // Create BankThread W1 and W2 for withdraw task
         //   - In all simulations, W1 manages only account A, W2 manages only account B
+        BankThread W1 = new BankThread("W1", accounts[0], false);
+        BankThread W2 = new BankThread("W2", accounts[1], false);
         //   - Pass CyclicBarrier object (Exchanger can be set to null)
 
         
@@ -117,7 +123,7 @@ public class Main {
         //  (2) Main thread waits until all BankThread completes #rounds of deposit/withdraw
         
         
-        // If user dosn't want to run a new simulation:
+        // If user doesn't want to run a new simulation:
         //   - Wait until all BankThreads return
         //   - Main thread reports final balances of all accounts
     }
