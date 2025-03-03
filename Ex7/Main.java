@@ -24,7 +24,9 @@ class BankThread extends Thread
     public void run() {
         // Loop for banking simulation. In each simulation:        
         //  (1) Wait until main thread gets #rounds from user and pass it to BankThread.
-        
+        while(true){
+
+        }
         //  (2) If this is the first simulation, skip this step.
         //      Otherwise, depositing threads exchange accounts with each other.
         //      Withdrawing threads that don't exchange accounts must wait until this is done.
@@ -46,16 +48,19 @@ class Account {
     public Account(String id, int b)   { name = id; balance = b; }
     public String getName()            { return name; }
     public int    getBalance()         { return balance; }
+    Random random = new Random();
     
     public void deposit() 
     {
         // Random money (1 to 100) to deposit; update the balance
+        random.nextInt(101);
         // Report thread activity (see example output)
     }
     
     public void withdraw()
     {
         // Random money (1 to balance/2) to withdraw; update the balance
+        random.nextInt();
         // Report thread activity (see example output)
         //   - But if balance is already 0, report that withdrawal fails
     }
@@ -67,6 +72,22 @@ public class Main {
     public static void main(String[] args) {
         Main mainApp = new Main();
         mainApp.runSimulation();
+        Scanner scan = new Scanner(System.in);
+        System.out.println("main >> Enter #rounds for a new simulation(-1 to quit)");
+        while(true){
+            int round = scan.nextInt();
+            if(round == -1){
+                System.exit(0);
+            }
+            else if(round >0){ break;}
+            else if(round == 0 || round < -1){System.out.println("Try again");}
+        }
+
+        for(int i=0; i<round; i++){
+            BankThread System = new BankThread(i);
+            BankThread.start();
+        }
+        
     }
 
     public void runSimulation()
