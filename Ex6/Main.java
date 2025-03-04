@@ -56,7 +56,7 @@ class CardThread extends Thread {
 
     public void run() {
         // Create PrintWriter object to write result to a separate file
-        File FilePath = new File("Ex6_6581098/src/main/java/Ex6_6581098/" + "T" + this.ThreadNumber + ".txt");
+        File  = new File("Ex6_6581098/src/main/java/Ex6_6581098/" + "T" + this.ThreadNumber + ".txt");
         try(PrintWriter Out = new PrintWriter(FilePath);){
             while(true){
                 while(randomCards.size() < OneCard.CardPerRound){
