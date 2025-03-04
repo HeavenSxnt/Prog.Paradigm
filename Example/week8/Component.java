@@ -1,11 +1,11 @@
-package Lab_Ch8;
+//package Lab_Ch8;
 
 import java.awt.*;
 import javax.swing.*;
 
-class w8_2_Component extends JFrame
+class Component extends JFrame
 {
-    public w8_2_Component()
+    public Component()
     {
 	this.setTitle("This is a Frame");
 	this.setBounds(200, 200, 600, 500);
@@ -118,6 +118,6 @@ class w8_2_Component extends JFrame
 
     public static void main(String[] args) 
     {
-	new w8_2_Component();
+	new Component();
     }
 }
